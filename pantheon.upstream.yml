@@ -11,3 +11,11 @@ protected_web_paths:
   - /private/
   - /sites/default/files/private/
   - /sites/default/files/config/
+workflows:
+  # Cache rebuild is often necessary after deploying a large amount of new
+  # vendor dependencies, this is especially likely during the initial deployment.
+  sync_code:
+    after:
+      - type: webphp
+        description: Rebuild Drupal cache
+        script: private/scripts/drush_rebuild_cache.php
